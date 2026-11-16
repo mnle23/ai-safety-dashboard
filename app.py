@@ -252,7 +252,7 @@ st.subheader("결과 해석")
 
 if len(summary) > 0:
     max_row = summary.loc[summary["제안 방법 DANGER 비율"].idxmax()]
-    st.write(
+    st.markdown(
         f"- 현재 데이터에서는 **{max_row['동작']}**에서 "
         f"가장 높은 DANGER 비율 **{max_row['제안 방법 DANGER 비율']:.1f}%**가 나타났습니다."
     )
