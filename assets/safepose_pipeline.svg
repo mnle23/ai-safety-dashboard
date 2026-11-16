@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+<title id="title">SafePose AI processing flow</title>
+<desc id="desc">Webcam input is processed by MediaPipe Pose, movement features and risk zone information are combined, and the result is classified as NORMAL, CAUTION, or DANGER.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" x2="1">
+    <stop offset="0%" stop-color="#F8FAFC"/>
+    <stop offset="100%" stop-color="#EEF4FF"/>
+  </linearGradient>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#94A3B8" flood-opacity="0.18"/>
+  </filter>
+</defs>
+<rect x="0" y="0" width="900" height="360" rx="28" fill="url(#bg)"/>
+
+<!-- camera -->
+<g transform="translate(42 64)" filter="url(#shadow)">
+  <rect x="0" y="34" width="150" height="110" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <rect x="118" y="61" width="48" height="56" rx="10" fill="#DBEAFE" stroke="#93C5FD" stroke-width="2"/>
+  <circle cx="72" cy="89" r="28" fill="#EFF6FF" stroke="#2563EB" stroke-width="5"/>
+  <circle cx="72" cy="89" r="12" fill="#2563EB"/>
+  <text x="75" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">웹캠 입력</text>
+  <text x="75" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#64748B">RGB 영상</text>
+</g>
+
+<!-- arrow 1 -->
+<path d="M220 132 H286" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+<path d="M286 132 l-13 -9 v18 z" fill="#94A3B8"/>
+
+<!-- pose -->
+<g transform="translate(306 42)" filter="url(#shadow)">
+  <rect x="0" y="0" width="190" height="180" rx="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <circle cx="95" cy="39" r="16" fill="#DBEAFE" stroke="#2563EB" stroke-width="4"/>
+  <line x1="95" y1="55" x2="95" y2="102" stroke="#2563EB" stroke-width="5"/>
+  <line x1="95" y1="68" x2="54" y2="92" stroke="#2563EB" stroke-width="5"/>
+  <line x1="95" y1="68" x2="136" y2="92" stroke="#2563EB" stroke-width="5"/>
+  <line x1="95" y1="102" x2="66" y2="146" stroke="#2563EB" stroke-width="5"/>
+  <line x1="95" y1="102" x2="124" y2="146" stroke="#2563EB" stroke-width="5"/>
+  <g fill="#E5484D">
+    <circle cx="54" cy="92" r="7"/><circle cx="136" cy="92" r="7"/>
+    <circle cx="95" cy="68" r="7"/><circle cx="95" cy="102" r="7"/>
+    <circle cx="66" cy="146" r="7"/><circle cx="124" cy="146" r="7"/>
+  </g>
+  <text x="95" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">MediaPipe Pose</text>
+  <text x="95" y="239" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#64748B">관절 좌표 추정</text>
+</g>
+
+<!-- arrow 2 -->
+<path d="M520 132 H582" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+<path d="M582 132 l-13 -9 v18 z" fill="#94A3B8"/>
+
+<!-- features -->
+<g transform="translate(602 58)" filter="url(#shadow)">
+  <rect x="0" y="0" width="165" height="150" rx="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <rect x="24" y="28" width="117" height="22" rx="11" fill="#DBEAFE"/>
+  <rect x="24" y="64" width="88" height="22" rx="11" fill="#FEF3C7"/>
+  <rect x="24" y="100" width="132" height="22" rx="11" fill="#FDE2E2"/>
+  <text x="82" y="40" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1D4ED8">위험구역 진입</text>
+  <text x="68" y="76" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#92400E">손목 속도</text>
+  <text x="90" y="112" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#991B1B">팔꿈치 각도 변화</text>
+  <text x="82" y="184" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">특징 결합</text>
+  <text x="82" y="209" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#64748B">규칙 기반 위험점수</text>
+</g>
+
+<!-- arrow 3 -->
+<path d="M784 132 H823" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+<path d="M823 132 l-13 -9 v18 z" fill="#94A3B8"/>
+
+<!-- outputs -->
+<g transform="translate(835 48)">
+  <rect x="0" y="0" width="58" height="48" rx="12" fill="#DCFCE7" stroke="#86EFAC"/>
+  <rect x="0" y="61" width="58" height="48" rx="12" fill="#FEF3C7" stroke="#FCD34D"/>
+  <rect x="0" y="122" width="58" height="48" rx="12" fill="#FEE2E2" stroke="#FCA5A5"/>
+  <text x="29" y="24" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#166534">NORMAL</text>
+  <text x="29" y="85" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#92400E">CAUTION</text>
+  <text x="29" y="146" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#991B1B">DANGER</text>
+  <text x="29" y="204" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0F172A">상태 판정</text>
+</g>
+
+<text x="450" y="326" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#475569">
+  웹캠 영상 → 관절 추정 → 움직임 특징 분석 → 위험 상태 시각화
+</text>
+</svg>
