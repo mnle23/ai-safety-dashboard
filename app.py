@@ -151,7 +151,7 @@ with st.sidebar:
     )
 
     st.divider()
-    st.caption("수업 과제를 위해 제작한 학습용 프로토타입")
+    st.caption("학습용 안전 모니터링 프로토타입")
     st.caption("MediaPipe Pose 기반 관절 추정 결과 활용")
 
 
@@ -336,17 +336,20 @@ with tab_dashboard:
 
     with st.container(border=True):
         st.markdown(
-            f"**{max_row['동작']}**에서 가장 높은 DANGER 비율 "
-            f"**{max_row['제안 방법 DANGER 비율']:.1f}%**가 나타났습니다."
+            f"<b>{max_row['동작']}</b>에서 가장 높은 DANGER 비율 "
+            f"<b>{max_row['제안 방법 DANGER 비율']:.1f}%</b>가 나타났습니다.",
+            unsafe_allow_html=True
         )
 
         if using_demo:
             st.markdown(
-                "- 정상 통과 **B(2.7%)**와 급정지 **C(3.3%)**의 차이는 "
-                "**0.6%p**로 작아, 현재 규칙만으로 급정지 동작을 명확히 구분하는 데 한계가 있습니다."
+                "• 정상 통과 <b>B(2.7%)</b>와 급정지 <b>C(3.3%)</b>의 차이는 "
+                "<b>0.6%p</b>로 작아, 현재 규칙만으로 급정지 동작을 명확히 구분하는 데 한계가 있습니다.",
+                unsafe_allow_html=True
             )
             st.markdown(
-                "- **D 팔꿈치 움직임(8.6%)**은 B와 C보다 높은 DANGER 비율을 보였습니다."
+                "• <b>D 팔꿈치 움직임(8.6%)</b>은 B와 C보다 높은 DANGER 비율을 보였습니다.",
+                unsafe_allow_html=True
             )
 
         st.caption(
