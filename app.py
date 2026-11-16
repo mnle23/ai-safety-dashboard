@@ -197,8 +197,26 @@ else:
 # ----------------------------
 # Header: service identity
 # ----------------------------
-st.title("SafePose AI")
-st.caption("MediaPipe Pose 기반 작업자 안전 모니터링 대시보드")
+hero_text, hero_visual = st.columns([1.05, 0.95], vertical_alignment="center")
+
+with hero_text:
+    st.title("SafePose AI")
+    st.caption("MediaPipe Pose 기반 작업자 안전 모니터링 대시보드")
+    st.markdown(
+        "현장 안전 관리자가 **관절 움직임 분석 결과와 위험 상태를 빠르게 확인**할 수 있도록 "
+        "구성한 학습용 AI 대시보드입니다."
+    )
+    st.caption(
+        "현재 웹 버전은 실시간 카메라 추론이 아니라, MediaPipe Pose로 사전 분석한 결과 CSV를 "
+        "불러와 요약·비교·시각화합니다."
+    )
+
+with hero_visual:
+    st.image(
+        "assets/safepose_pipeline.svg",
+        alt="웹캠 영상이 MediaPipe Pose 관절 추정과 움직임 특징 분석을 거쳐 NORMAL, CAUTION, DANGER 상태로 분류되는 흐름",
+        width="stretch",
+    )
 
 intro1, intro2, intro3 = st.columns(3)
 with intro1:
@@ -211,14 +229,8 @@ with intro2:
         st.write("MediaPipe Pose 관절 좌표 추정")
 with intro3:
     with st.container(border=True):
-        st.markdown("**제공 기능**")
-        st.write("위험 상태 요약 · 비교 · CSV 분석")
-
-st.caption(
-    "웹캠 영상에서 추정한 어깨·팔꿈치·손목 관절 특징과 위험구역 진입 정보를 활용해 "
-    "NORMAL / CAUTION / DANGER 상태를 시각화합니다. "
-    "실제 산업재해 발생 가능성을 예측하는 시스템은 아닙니다."
-)
+        st.markdown("**현재 웹 기능**")
+        st.write("CSV 분석 · 상태 요약 · 동작 비교")
 
 st.divider()
 
@@ -426,10 +438,18 @@ with tab_service:
         3. 규칙 기반 위험점수를 이용해 NORMAL / CAUTION / DANGER 상태로 구분합니다.
         4. Streamlit에서 결과를 요약하고 비교·시각화합니다.
 
+        **현재 웹 버전에서 제공하는 기능**
+        - 예제 실험 데이터 즉시 확인
+        - 분석 결과 CSV 업로드
+        - 위험 상태 KPI 및 상태 분포 시각화
+        - Baseline과 제안 방법 비교
+        - 동작별 결과 표와 자동 핵심 해석
+
         **현재 프로토타입의 범위**
         - 참가자 1명의 모의 동작 데이터를 사용했습니다.
         - A~D 동작을 각각 4회 수행한 실험 결과를 기반으로 합니다.
         - 저장된 CSV에는 반복별 시작·종료 구분이 없어 프레임 단위 비율로 비교합니다.
+        - 현재 배포 버전은 **실시간 웹캠 분석 기능을 포함하지 않습니다.**
         - 실제 산업현장 적용 전에는 다양한 작업자와 환경에서 추가 검증이 필요합니다.
         """
     )
