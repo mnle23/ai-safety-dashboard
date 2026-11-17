@@ -9,6 +9,93 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2.0rem;
+    padding-bottom: 3.5rem;
+}
+.hero-kicker {
+    display: inline-block;
+    padding: 0.32rem 0.7rem;
+    border-radius: 999px;
+    background: #EAF2FF;
+    color: #2457A7;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+}
+.badge-row {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+    margin-bottom: 0.7rem;
+}
+.badge {
+    padding: 0.30rem 0.62rem;
+    border: 1px solid #D7E3F4;
+    border-radius: 999px;
+    color: #40546F;
+    background: #F8FBFF;
+    font-size: 0.80rem;
+    font-weight: 600;
+}
+.feature-card {
+    border: 1px solid #DFE6EF;
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    background: #FFFFFF;
+    min-height: 105px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+}
+.feature-label {
+    font-size: 0.82rem;
+    color: #6B778C;
+    margin-bottom: 0.35rem;
+    font-weight: 700;
+}
+.feature-value {
+    font-size: 1.0rem;
+    color: #172033;
+    font-weight: 700;
+}
+.kpi-card {
+    border: 1px solid #E0E6EE;
+    border-top: 4px solid #4F78D1;
+    border-radius: 14px;
+    padding: 0.9rem 1rem 0.95rem 1rem;
+    background: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+}
+.kpi-label {
+    color: #697586;
+    font-size: 0.80rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+.kpi-value {
+    color: #172033;
+    font-size: 2rem;
+    line-height: 1.05;
+    font-weight: 700;
+}
+.kpi-total { border-top-color: #4F78D1; }
+.kpi-normal { border-top-color: #22A06B; }
+.kpi-zone { border-top-color: #7C63D9; }
+.kpi-caution { border-top-color: #E2A400; }
+.kpi-danger { border-top-color: #E5484D; }
+.section-note {
+    border-left: 4px solid #4F78D1;
+    background: #F7FAFE;
+    padding: 0.75rem 0.95rem;
+    border-radius: 8px;
+    color: #445065;
+    margin: 0.4rem 0 1rem 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # ----------------------------
 # Data
 # ----------------------------
@@ -200,11 +287,20 @@ else:
 hero_text, hero_visual = st.columns([1.05, 0.95], vertical_alignment="center")
 
 with hero_text:
+    st.markdown('<span class="hero-kicker">AI Safety Dashboard</span>', unsafe_allow_html=True)
     st.title("SafePose AI")
     st.caption("MediaPipe Pose 기반 작업자 안전 모니터링 대시보드")
     st.markdown(
         "현장 안전 관리자가 **관절 움직임 분석 결과와 위험 상태를 빠르게 확인**할 수 있도록 "
         "구성한 학습용 AI 대시보드입니다."
+    )
+    st.markdown(
+        '<div class="badge-row">'
+        '<span class="badge">Pose Estimation</span>'
+        '<span class="badge">Safety Monitoring</span>'
+        '<span class="badge">CSV Analytics</span>'
+        '</div>',
+        unsafe_allow_html=True
     )
     st.caption(
         "현재 웹 버전은 실시간 카메라 추론이 아니라, MediaPipe Pose로 사전 분석한 결과 CSV를 "
@@ -220,17 +316,23 @@ with hero_visual:
 
 intro1, intro2, intro3 = st.columns(3)
 with intro1:
-    with st.container(border=True):
-        st.markdown("**대상 사용자**")
-        st.write("현장 안전 관리자")
+    st.markdown(
+        '<div class="feature-card"><div class="feature-label">👤 대상 사용자</div>'
+        '<div class="feature-value">현장 안전 관리자</div></div>',
+        unsafe_allow_html=True
+    )
 with intro2:
-    with st.container(border=True):
-        st.markdown("**AI 활용 지점**")
-        st.write("MediaPipe Pose 관절 좌표 추정")
+    st.markdown(
+        '<div class="feature-card"><div class="feature-label">🤖 AI 활용 지점</div>'
+        '<div class="feature-value">MediaPipe Pose 관절 좌표 추정</div></div>',
+        unsafe_allow_html=True
+    )
 with intro3:
-    with st.container(border=True):
-        st.markdown("**현재 웹 기능**")
-        st.write("CSV 분석 · 상태 요약 · 동작 비교")
+    st.markdown(
+        '<div class="feature-card"><div class="feature-label">📊 현재 웹 기능</div>'
+        '<div class="feature-value">CSV 분석 · 상태 요약 · 동작 비교</div></div>',
+        unsafe_allow_html=True
+    )
 
 st.divider()
 
@@ -242,21 +344,31 @@ mode_label = "예제 실험 데이터" if using_demo else "업로드 데이터"
 st.caption(f"현재 분석 데이터: {mode_label}")
 
 m1, m2, m3, m4, m5 = st.columns(5)
-m1.metric("전체 프레임", f"{total_frames:,}", border=True)
-m2.metric("NORMAL", f"{normal_frames:,}", border=True)
-m3.metric("위험구역 진입", f"{in_zone_frames:,}", border=True)
-m4.metric("CAUTION", f"{caution_frames:,}", border=True)
-m5.metric("DANGER", f"{danger_frames:,}", border=True)
+with m1:
+    st.markdown(f'<div class="kpi-card kpi-total"><div class="kpi-label">전체 프레임</div><div class="kpi-value">{total_frames:,}</div></div>', unsafe_allow_html=True)
+with m2:
+    st.markdown(f'<div class="kpi-card kpi-normal"><div class="kpi-label">NORMAL</div><div class="kpi-value">{normal_frames:,}</div></div>', unsafe_allow_html=True)
+with m3:
+    st.markdown(f'<div class="kpi-card kpi-zone"><div class="kpi-label">위험구역 진입</div><div class="kpi-value">{in_zone_frames:,}</div></div>', unsafe_allow_html=True)
+with m4:
+    st.markdown(f'<div class="kpi-card kpi-caution"><div class="kpi-label">CAUTION</div><div class="kpi-value">{caution_frames:,}</div></div>', unsafe_allow_html=True)
+with m5:
+    st.markdown(f'<div class="kpi-card kpi-danger"><div class="kpi-label">DANGER</div><div class="kpi-value">{danger_frames:,}</div></div>', unsafe_allow_html=True)
 
 # ----------------------------
 # Main dashboard tabs
 # ----------------------------
 tab_dashboard, tab_data, tab_service = st.tabs(
-    ["대시보드", "CSV 분석", "서비스 소개"]
+    ["대시보드", "CSV 분석", "AI 분석 구조"]
 )
 
 with tab_dashboard:
     st.subheader("위험 상태 시각화")
+    st.markdown(
+        '<div class="section-note">상태별 분포와 동작별 DANGER 비율을 함께 확인해 '
+        '현재 분석 결과의 특징을 빠르게 파악할 수 있습니다.</div>',
+        unsafe_allow_html=True
+    )
 
     left, right = st.columns([0.9, 1.1])
 
@@ -296,7 +408,7 @@ with tab_dashboard:
         )
         danger_fig.update_traces(
             textposition="outside",
-            marker_color="#3B82F6",
+            marker_color="#E5484D",
         )
         danger_fig.update_layout(
             title="동작별 DANGER 비율",
@@ -425,7 +537,7 @@ with tab_data:
         )
 
 with tab_service:
-    st.subheader("서비스 소개")
+    st.subheader("AI 분석 구조 및 서비스 범위")
 
     st.markdown(
         """
